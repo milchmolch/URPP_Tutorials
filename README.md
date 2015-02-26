@@ -16,7 +16,7 @@ Stefan Wyder & Heidi Lischer
 
    ssh, compression, permission, (bash scripting)
 
-   [Hands-on](http://milchmolch.github.io/URPP_Tutorials/NGS/URPP_Tutorial_LinuxPart2.pdf)
+   [Hands-on](LinuxShell/URPP_Tutorial_LinuxPart2.pdf)
 3. **Intermediate** 
 
    [bash scripting](http://milchmolch.github.io/URPP_Tutorials/LinuxShell/URPP_Tutorial_LinuxPart3_HL.pdf), [parallel jobs, awk, regexps](http://milchmolch.github.io/URPP_Tutorials/LinuxShell/Unix_Part3.html)
@@ -38,17 +38,18 @@ Stefan Wyder & Heidi Lischer
 
    variant calling (GATK), Variant Effect Prediction
 
-   [Theory HL](http://milchmolch.github.io/URPP_Tutorials/NGS/URPP_Tutorial_NGS_Part3_HL.pdf) [Theory SW](http://milchmolch.github.io/URPP_Tutorials/NGS/URPP_Tutorial_NGS_Part3_SW.pdf) [Hands-on](http://milchmolch.github.io/URPP_Tutorials/NGS/URPP_Exercises_NGS_Part3.pdf)
+   [Theory 1](http://milchmolch.github.io/URPP_Tutorials/NGS/URPP_Tutorial_NGS_Part3_HL.pdf) [Theory 2](http://milchmolch.github.io/URPP_Tutorials/NGS/URPP_Tutorial_NGS_Part3_SW.pdf) [Hands-on](http://milchmolch.github.io/URPP_Tutorials/NGS/URPP_Exercises_NGS_Part3.pdf)
 4. **RNA-seq & co**
 
    Differential expression(edgeR), Gene Ontology Analysis, Gene Set Enrichment Analysis
 
-   [Theory HL](http://milchmolch.github.io/URPP_Tutorials/NGS/URPP_Tutorial_RNAseq_HL.pdf) [Theory SW](http://milchmolch.github.io/URPP_Tutorials/NGS/URPP_Tutorial_RNAseq_SW.pdf) [Hands-on HL](http://milchmolch.github.io/URPP_Tutorials/NGS/Exercises_RNAseq_Tutorial_HL.pdf) [Hands-on SW](http://milchmolch.github.io/URPP_Tutorials/NGS/Exercises_RNAseq_Tutorial_SW.pdf)
+   [Theory 1](http://milchmolch.github.io/URPP_Tutorials/NGS/URPP_Tutorial_RNAseq_HL.pdf) [Theory 2](http://milchmolch.github.io/URPP_Tutorials/NGS/URPP_Tutorial_RNAseq_SW.pdf) [Hands-on 1](http://milchmolch.github.io/URPP_Tutorials/NGS/Exercises_RNAseq_Tutorial_HL.pdf) [Hands-on 2](http://milchmolch.github.io/URPP_Tutorials/NGS/Exercises_RNAseq_Tutorial_SW.pdf)
 
 
-## R (2 parts, 2x6.5h+3h=15h)
+## R (3 parts, 2x6.5h+3h=15h)
 
 [Stefan's website](http://milchmolch.github.io/R_Tutorial/)
+
 [Heidi's material (pdf documents)]()
 
 
