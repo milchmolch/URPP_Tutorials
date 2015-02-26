@@ -7,10 +7,8 @@ Stefan Wyder & Heidi Lischer
 
 ## Linux/Bash shell (3 parts, 3x3h=9h)
 
-1. [**Basics 1**](http://milchmolch.github.io/URPP_Tutorials/LinuxShell/Unix_Part1.html)
-
-   Folder structure, commands with files&folders, commands with text, piping, (awk)
-
+1. [**Basics 1**](http://milchmolch.github.io/URPP_Tutorials/LinuxShell/Unix_Part1.html)  
+   Folder structure, commands with files&folders, commands with text, piping, (awk)   
    [Hands-on](https://github.com/milchmolch/URPP_Tutorials/raw/master/LinuxShell/URPP_Tutorial_LinuxPart1.pdf)
 2. [**Basics 2**](http://milchmolch.github.io/URPP_Tutorials/LinuxShell/Unix_Part2.html)
 
