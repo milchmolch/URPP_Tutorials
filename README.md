@@ -7,15 +7,15 @@ Stefan Wyder & Heidi Lischer
 
 ## Linux/Bash shell (3 parts, 3x3h=9h)
 
-1. [**Basics 1**](http://milchmolch.github.io/URPP_Tutorials/LinuxShell/Unix_Part1.html)  
+1. [**Basics 1**](https://github.com/milchmolch/URPP_Tutorials/raw/master/LinuxShell/URPP_Tutorial_LinuxPart1.pdf)  
    Folder structure, commands with files&folders, commands with text, piping, (awk)   
-   [Hands-on](https://github.com/milchmolch/URPP_Tutorials/raw/master/LinuxShell/URPP_Tutorial_LinuxPart1.pdf)
-2. [**Basics 2**](http://milchmolch.github.io/URPP_Tutorials/LinuxShell/Unix_Part2.html)  
+   [Hands-on](http://milchmolch.github.io/URPP_Tutorials/LinuxShell/Unix_Part1.html)
+2. [**Basics 2**](https://github.com/milchmolch/URPP_Tutorials/raw/master/LinuxShell/URPP_Tutorial_LinuxPart2.pdf)  
    ssh, compression, permission, (bash scripting)  
-   [Hands-on](https://github.com/milchmolch/URPP_Tutorials/raw/master/LinuxShell/URPP_Tutorial_LinuxPart2.pdf)  
+   [Hands-on](http://milchmolch.github.io/URPP_Tutorials/LinuxShell/Unix_Part2.html)  
 3. **Intermediate**  
    - [bash scripting](https://github.com/milchmolch/URPP_Tutorials/raw/master/LinuxShell/URPP_Tutorial_LinuxPart3_HL.pdf)
-   - [parallel jobs, awk, regexps](https://github.com/milchmolch/URPP_Tutorials/raw/master/LinuxShell/Unix_Part3.html)  
+   - [parallel jobs, awk, regexps](http://milchmolch.github.io/URPP_Tutorials/LinuxShell/Unix_Part3.html)  
    [Exercises](https://github.com/milchmolch/URPP_Tutorials/raw/master/LinuxShell/URPP_Tutorial_LinuxPart3_HL.pdf) [Hands-on](https://github.com/milchmolch/URPP_Tutorials/raw/master/LinuxShell/URPP_Hands-on_UnixPart3_SW.pdf)  
 
 ## Next-Generation-Sequencing (4 parts, 4x3h=12h)
