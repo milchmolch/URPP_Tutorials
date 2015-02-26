@@ -16,14 +16,14 @@ Stefan Wyder & Heidi Lischer
 3. **Intermediate**  
    - [bash scripting](https://github.com/milchmolch/URPP_Tutorials/raw/master/LinuxShell/URPP_Tutorial_LinuxPart3_HL.pdf)
    - [parallel jobs, awk, regexps](http://milchmolch.github.io/URPP_Tutorials/LinuxShell/Unix_Part3.html)  
-   [Exercises](https://github.com/milchmolch/URPP_Tutorials/raw/master/LinuxShell/URPP_Tutorial_LinuxPart3_HL.pdf) [Hands-on](https://github.com/milchmolch/URPP_Tutorials/raw/master/LinuxShell/URPP_Hands-on_UnixPart3_SW.pdf)  
+   [Exercises](https://github.com/milchmolch/URPP_Tutorials/raw/master/LinuxShell/Exercises_LinuxPart3_HL.pdf) | [Hands-on](https://github.com/milchmolch/URPP_Tutorials/raw/master/LinuxShell/URPP_Hands-on_UnixPart3_SW.pdf)  
 
 ## Next-Generation-Sequencing (4 parts, 4x3h=12h)
 
 1. [**Introduction**](https://github.com/milchmolch/URPP_Tutorials/raw/master/NGS/URPP_Tutorial_NGS_Part1.pdf)  
    Sequencing Technologies, Quality control (FastQC), SAM/BAM formats, samtools  
    [Hands-on](https://github.com/milchmolch/URPP_Tutorials/raw/master/NGS/URPP_Hands-on_NGS_Part1.pdf)  
-2. [**Variant Calling**](http://milchmolch/URPP_Tutorials/raw/master/NGS/URPP_Tutorial_NGS_Part2.pdf)  
+2. [**Variant Calling**](http://github.com/milchmolch/URPP_Tutorials/raw/master/NGS/URPP_Tutorial_NGS_Part2.pdf)  
    Preprocessing BAMs, variant calling example (freebayes), VCF format   
    [Hands-on](https://github.com/milchmolch/URPP_Tutorials/raw/master/NGS/URPP_Hands-on_NGS_Part2.pdf)
 3. **Variant Calling 2**   
