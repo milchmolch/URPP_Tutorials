@@ -14,7 +14,8 @@ Stefan Wyder & Heidi Lischer
    ssh, compression, permission, (bash scripting)  
    [Hands-on](https://github.com/milchmolch/URPP_Tutorials/raw/master/LinuxShell/URPP_Tutorial_LinuxPart2.pdf)  
 3. **Intermediate**  
-   [bash scripting](https://github.com/milchmolch/URPP_Tutorials/raw/master/LinuxShell/URPP_Tutorial_LinuxPart3_HL.pdf), [parallel jobs, awk, regexps](https://github.com/milchmolch/URPP_Tutorials/raw/master/LinuxShell/Unix_Part3.html)  
+   - [bash scripting](https://github.com/milchmolch/URPP_Tutorials/raw/master/LinuxShell/URPP_Tutorial_LinuxPart3_HL.pdf)
+   - [parallel jobs, awk, regexps](https://github.com/milchmolch/URPP_Tutorials/raw/master/LinuxShell/Unix_Part3.html)  
    [Exercises](https://github.com/milchmolch/URPP_Tutorials/raw/master/LinuxShell/URPP_Tutorial_LinuxPart3_HL.pdf) [Hands-on](https://github.com/milchmolch/URPP_Tutorials/raw/master/LinuxShell/URPP_Hands-on_UnixPart3_SW.pdf)  
 
 ## Next-Generation-Sequencing (4 parts, 4x3h=12h)
