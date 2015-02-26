@@ -10,10 +10,12 @@ Stefan Wyder & Heidi Lischer
 1. [**Basics 1**](http://milchmolch.github.io/URPP_Tutorials/LinuxShell/Unix_Part1.html)
 
    Folder structure, commands with files&folders, commands with text, piping, (awk)
-   [Hands-on](NGS/URPP_Tutorial_LinuxPart1.pdf)
+
+   [Hands-on](LinuxShell/URPP_Tutorial_LinuxPart1.pdf)
 2. [**Basics 2**](http://milchmolch.github.io/URPP_Tutorials/LinuxShell/Unix_Part2.html)
 
    ssh, compression, permission, (bash scripting)
+
    [Hands-on](http://milchmolch.github.io/URPP_Tutorials/NGS/URPP_Tutorial_LinuxPart2.pdf)
 3. **Intermediate** 
 
@@ -25,18 +27,22 @@ Stefan Wyder & Heidi Lischer
 1. [**Introduction**](http://milchmolch.github.io/URPP_Tutorials/NGS/URPP_Tutorial_NGS_Part1.pdf) 
 
    Sequencing Technologies, Quality control (FastQC), SAM/BAM formats, samtools
+
    [Hands-on](http://milchmolch.github.io/URPP_Tutorials/NGS/URPP_Hands-on_NGS_Part1.pdf) 
 2. [**Variant Calling**](http://milchmolch.github.io/URPP_Tutorials/NGS/URPP_Tutorial_NGS_Part2.pdf)
 
    Preprocessing BAMs, variant calling example (freebayes), VCF format
+
    [Hands-on](http://milchmolch.github.io/URPP_Tutorials/NGS/URPP_Hands-on_NGS_Part2.pdf)
 3. **Variant Calling 2**
 
    variant calling (GATK), Variant Effect Prediction
+
    [Theory HL](http://milchmolch.github.io/URPP_Tutorials/NGS/URPP_Tutorial_NGS_Part3_HL.pdf) [Theory SW](http://milchmolch.github.io/URPP_Tutorials/NGS/URPP_Tutorial_NGS_Part3_SW.pdf) [Hands-on](http://milchmolch.github.io/URPP_Tutorials/NGS/URPP_Exercises_NGS_Part3.pdf)
 4. **RNA-seq & co**
 
    Differential expression(edgeR), Gene Ontology Analysis, Gene Set Enrichment Analysis
+
    [Theory HL](http://milchmolch.github.io/URPP_Tutorials/NGS/URPP_Tutorial_RNAseq_HL.pdf) [Theory SW](http://milchmolch.github.io/URPP_Tutorials/NGS/URPP_Tutorial_RNAseq_SW.pdf) [Hands-on HL](http://milchmolch.github.io/URPP_Tutorials/NGS/Exercises_RNAseq_Tutorial_HL.pdf) [Hands-on SW](http://milchmolch.github.io/URPP_Tutorials/NGS/Exercises_RNAseq_Tutorial_SW.pdf)
 
 
