@@ -1,0 +1,1274 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE>Practical_bioinformatics_unix.docx</TITLE>
+	<META NAME="GENERATOR" CONTENT="LibreOffice 4.1.4.2 (MacOSX)">
+	<META NAME="CREATED" CONTENT="20140821;101100000000000">
+	<META NAME="CHANGEDBY" CONTENT="Stefan Wyder">
+	<META NAME="CHANGED" CONTENT="20140821;111600000000000">
+	<META NAME="AppVersion" CONTENT="14.0000">
+	<META NAME="Company" CONTENT="UZH">
+	<META NAME="DocSecurity" CONTENT="0">
+	<META NAME="HyperlinksChanged" CONTENT="false">
+	<META NAME="LinksUpToDate" CONTENT="false">
+	<META NAME="ScaleCrop" CONTENT="false">
+	<META NAME="ShareDoc" CONTENT="false">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { size: 21.59cm 27.94cm; margin-left: 2.54cm; margin-right: 2.54cm; margin-top: 1.27cm; margin-bottom: 2.54cm }
+		P { margin-bottom: 0.21cm; direction: ltr; widows: 2; orphans: 2 }
+		A:link { color: #0000ff; so-language: zxx }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" LINK="#0000ff" BGCOLOR="#ffffff" DIR="LTR">
+<DIV TYPE=HEADER>
+	<P STYLE="margin-bottom: 0cm"><BR>
+	</P>
+	<P STYLE="margin-bottom: 1.17cm"><BR>
+	</P>
+</DIV>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=5 STYLE="font-size: 20pt">Exercises
+Linux Tutorial  - Part 3</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part3_html_c773f128.jpg" NAME="Bild 28" ALIGN=BOTTOM WIDTH=741 HEIGHT=91 BORDER=0></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3>Stefan
+Wyder									August 2014</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3><B>URPP
+Evolution</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3>University
+of Zurich</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3><B>Content</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Exercise
+1:	Parallelizing jobs using GNU parallel</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Exercise
+2,3:	Introduction into awk </FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Exercise
+4:	Regular expression</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part3_html_a660a3f5.png" NAME="image00.png" ALIGN=BOTTOM WIDTH=24 HEIGHT=24 BORDER=0>
+<FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3><B>Exercise
+1: GNU parallel</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">All
+the commands we were running in the preceding tutorials were running
+on a single processor. But some jobs are time-consuming and one would
+like to speed them up by using all the processors/cores of a modern
+computer. One way is to use GNU parallel
+(<A HREF="http://www.gnu.org/software/parallel/">http://www.gnu.org/software/parallel/</A>).
+</FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Install
+GNU parallel on Ubuntu:</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif">sudo
+apt-get install parallel </FONT></FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><SPAN DIR="LTR" STYLE="float: left; width: 16.19cm; height: 2.43cm; border: 1px solid #4f81bd; padding: 0.13cm 0.25cm; background: #ffffff">
+	<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT COLOR="#1f497d">For
+	Mac OS X users only:</FONT></FONT></FONT></FONT></P>
+	<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT COLOR="#1f497d">On
+	Mac OS X GNU parallel is not available by default, you can install
+	it with your favorite package manager e.g if you have installed
+	homebrew, simply type: brew install parallel<BR>Alternatively,
+	parallel is also available under fink.</FONT></FONT></FONT></FONT></P>
+	<P STYLE="margin-bottom: 0cm"><BR>
+	</P>
+</SPAN><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Once
+installed you can use parallel to speed up your analyses. Parallel
+also takes cares not to overload the system (preventing to make it
+slow and unresponsive). </FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">GNU
+parallel often replaces a for loop and runs faster as jobs are run in
+parallel - one per CPU core.</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">This
+example runs fastqc on all .fq files in the directory:</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2 STYLE="font-size: 11pt">find
+*.fq | parallel fastqc {} --outdir . </FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">This
+example indexes all bam files:</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><BR>find
+*.bam | parallel samtools index {}</FONT></FONT></FONT></P>
+<P LANG="de-CH" STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">You
+can use parallel for your own scripts. The following line runs the
+script run_single_plink.sh in parallel by running it once per
+chromosome.</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>seq
+1 22 | parallel -j 20 --progress run_single_plink.sh --chromosome {}</FONT></FONT></FONT></P>
+<P LANG="de-CH" STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P LANG="de-CH" STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P LANG="de-CH" STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">GNU
+parallel has many functions e.g. for controlling the output, limiting
+ressources and executing on a remote computer. To get an idea of the
+possibilities and options of GNU parallel check </FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2 STYLE="font-size: 11pt">man
+parallel_tutorial</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">.
+As usual options are explained under </FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2 STYLE="font-size: 11pt">man
+parallel</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">.
+As for most GNU tools a detailed manual is available under &lt;info
+parallel&gt;.</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">You
+find an excellent page on GNU parallel with several bioinformatics
+examples (BLAST, own scripts) under </FONT></FONT></FONT><A HREF="https://www.biostars.org/p/63816/"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">https://www.biostars.org/p/63816/</FONT></FONT></A><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">
+and </FONT></FONT></FONT><A HREF="http://davetang.org/muse/2013/11/18/using-gnu-parallel/"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">http://davetang.org/muse/2013/11/18/using-gnu-parallel/</FONT></FONT></A></P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">When
+trying out <FONT FACE="Courier New, serif">parallel --dryrun</FONT>
+is convenient for testing as it shows the actual commands without
+running them.</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part3_html_a660a3f5.png" NAME="graphics1" ALIGN=BOTTOM WIDTH=24 HEIGHT=24 BORDER=0>
+<FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3><B>Exercise
+2: awk</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">awk
+is handy for using in shell pipes. Most people just use it for
+one-liners and in shell pipes. For more complicated problems it is
+often better to use a standard programming language (e.g. python)
+that is easier to read and maintain. I will try to give you an idea
+of what awk is capable of.</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>First
+let us prepare an example data file</B></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">We
+use a genome annotation file for the model plant <I>Arabidopsis
+thaliana</I> – The file is in GFF format that is a standard format
+to describe genome annotations. </FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<OL>
+	<LI><P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Download
+	the annotation file from the Arabidopsis TAIR website:<BR><FONT FACE="Courier New, serif">wget
+	ftp://ftp.arabidopsis.org/home/tair/Genes/TAIR10_genome_release/TAIR10_gff3/TAIR10_GFF3_genes.gff</FONT></FONT></FONT></FONT></P>
+	<LI><P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Extract
+	the first 100 lines into a new file At.gff:<BR><FONT FACE="Courier New, serif">head
+	-100 TAIR10_GFF3_genes.gff &gt; At.gff</FONT></FONT></FONT></FONT></P>
+	<LI><P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Look
+	at the file, the file is tab-separated with 9
+	columns/fields:<FONT SIZE=2><BR></FONT><FONT FACE="Verdana, serif"><FONT SIZE=2 STYLE="font-size: 9pt"><SPAN LANG="de-DE"><SPAN STYLE="background: #ffffff">&lt;chromosome&gt;
+	&lt;source&gt; &lt;feature&gt; &lt;start&gt; &lt;end&gt; &lt;score&gt;
+	&lt;strand&gt; &lt;frame&gt; &lt;group&gt;</SPAN></SPAN></FONT></FONT></FONT></FONT></FONT></P>
+</OL>
+<P LANG="de-DE" STYLE="margin-left: 1.27cm; margin-bottom: 0cm; line-height: 115%">
+<BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Non-available
+values are denoted with a dot ('.'). You find a detailed format
+description under <A HREF="http://genome.ucsc.edu/FAQ/FAQformat.html#format3"><FONT SIZE=2>http://genome.ucsc.edu/FAQ/FAQformat.html#format3</FONT></A></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>The
+basic structure of awk</B></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT COLOR="#ff0000"><B>pattern
+{action}</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">is
+the basic pattern in awk. For each line, it will check whether the
+pattern is true/fulfilled and only then perform &lt;action&gt;.  You
+can also have multiple patterns like </FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT COLOR="#ff0000"><B>pattern1
+{action1} pattern2 {action2} pattern3 {action3}</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">awk
+reads the input (file) line by line and by default, each line is a
+record and is broken into fields that are called $1,$2,$3 etc. $0 is
+the whole line.</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif">awk
+'$3 == &quot;mRNA&quot; {print $0}' At.gff</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">reads
+in the file At.gff and prints out all the lines where column 3 is
+equal to mRNA. </FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">By
+default the output is separated by a blank space. </FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>Commented
+Examples</B></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Now
+that we know the awk structure we will revise what we have done in
+part 1 of the Linux/bash tutorial. </FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part3_html_15e79550.jpg" NAME="image02.jpg" ALIGN=BOTTOM WIDTH=24 HEIGHT=24 BORDER=0>
+<FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Try to
+understand the following examples. Run them on your own machine and
+check the output. Modify them and check whether they produce the
+expected result.</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">A
+pattern can be a condition or a regular expression.</FONT></FONT></FONT></P>
+<TABLE WIDTH=741 CELLPADDING=2 CELLSPACING=0>
+	<COL WIDTH=343>
+	<COL WIDTH=386>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="widows: 0; orphans: 0"><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			'$3 == &quot;mRNA&quot; {print $0}' At.gff</FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Print
+			all lines where column 3 is equal to 'mRNA'</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="widows: 0; orphans: 0"><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			'$3 == &quot;mRNA&quot;' At.gff</FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>The
+			same as above - we can leave out {print $0}</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="widows: 0; orphans: 0"><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			'$3 != &quot;mRNA&quot;' At.gff</FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Print
+			all lines where column 1 is NOT equal to 'mRNA'</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="widows: 0; orphans: 0"><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			'$4 &gt;= $5' At.gff</FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Shows
+			lines where column 4 is larger or equal than column 5. Can be used
+			to spot errors in GFF files.</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="widows: 0; orphans: 0"><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			'/gene/' At.gff</FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Here
+			the pattern is a regular expression (denoted by '/'). The simplest
+			regular expression is a simple string.</FONT></FONT></FONT></FONT></P>
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Gives
+			the same result as grep &quot;gene&quot; At.gff</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="widows: 0; orphans: 0"><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			'$3 ~/^[a-f]/' At.gff</FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Print
+			each line where column 3 matches the regular expression.</FONT></FONT></FONT></FONT></P>
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>This
+			made-up example prints all lines where column 3 starts with any of
+			the letters abcdef. CDS is not included as regexps are
+			case-sensitive.</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="widows: 0; orphans: 0"><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			'$3 !~/^[a-f]/' At.gff</FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Print
+			each line where column 3 does NOT match the regular expression.</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="widows: 0; orphans: 0"><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			'$9 ~/^ID=AT[34]G/' TAIR10_GFF3_genes.gff</FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Print
+			each line where column 9 starts with 'ID=AT3G' or 'ID=AT4G'</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="widows: 0; orphans: 0"><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			'{sub(/Note/, &quot;Type&quot;, $0);print}' At.gff</FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Replace
+			'Note' with 'Type'</FONT></FONT></FONT></FONT></P>
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>sub
+			replaces only once per line.</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			'{gsub(/scarlet|ruby|puce/, &quot;red&quot;)}</FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Replace
+			'Scarlet' or 'ruby' or 'puce' with 'red'</FONT></FONT></FONT></FONT></P>
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>In
+			contrast to sub gsub (global sub) replaces all occurrences.</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P LANG="de-CH" STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P LANG="de-CH" STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">A
+pattern can also comprise multiple conditions</FONT></FONT></FONT></P>
+<TABLE WIDTH=741 CELLPADDING=2 CELLSPACING=0>
+	<COL WIDTH=343>
+	<COL WIDTH=386>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="widows: 0; orphans: 0"><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			'$4&gt;1000 &amp;&amp; $5&lt;6000' </FONT></FONT></FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>At.gff</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Shows
+			all features at positions between 1000 and 6000</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="widows: 0; orphans: 0"><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			'NR &gt; 10 &amp;&amp; NR &lt;= 17' At.gff</FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Print
+			lines 11 to 17 of a file</FONT></FONT></FONT></FONT></P>
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>NR
+			is the built-in variable for the line number</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="widows: 0; orphans: 0"><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			'$4&lt;2000 || $4&gt;4000' </FONT></FONT></FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>At.gff</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Shows
+			all features with positions smaller than 2000 or larger than 4000</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">The
+following examples do have a non-existing pattern what is considered
+to match every input record. Therefore their action will be executed
+at every line.</FONT></FONT></FONT></P>
+<TABLE WIDTH=741 CELLPADDING=2 CELLSPACING=0>
+	<COL WIDTH=343>
+	<COL WIDTH=386>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="widows: 0; orphans: 0"><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			</FONT></FONT></FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>'</FONT></FONT><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>{print
+			$1,$2,$4,$5}</FONT></FONT></FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>'</FONT></FONT><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>
+			</FONT></FONT></FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>At.gff</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>awk
+			splits a tab- or space-delimited file into variables. $0 contains
+			the full input line, $1 column 1, $2 column 2, and so on. </FONT></FONT></FONT></FONT>
+			</P>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="widows: 0; orphans: 0"><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			</FONT></FONT></FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>'</FONT></FONT><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>{print
+			$4,$2,$3,$1}</FONT></FONT></FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>'</FONT></FONT><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>
+			</FONT></FONT></FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>At.gff</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Rearrange
+			columns 1 and 4.</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT COLOR="#00000a"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			'{sum=$4+$5;print sum,$0}' </FONT></FONT></FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>At.gff</FONT></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Print
+			out the sum of columns 4 and 5 before the line</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT COLOR="#00000a"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			'{sum=$4+$5;print &quot;Sum:&quot;sum,$0}' </FONT></FONT></FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>At.gff</FONT></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>As
+			above, but we print a leading &quot;Sum:&quot; in front of the sum</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT COLOR="#00000a"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			'{$2=$4+$5;print}' </FONT></FONT></FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>At.gff</FONT></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Replace
+			column 2 by the sum of columns 4 and 5</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">The
+patterns &lt;BEGIN&gt; and &lt;END&gt; are executed only once, either
+before the first input record is read or after all the input is read.
+&lt;BEGIN&gt; is convenient to set variables like the input field
+separator (FS) and the output field separator (OFS). By default the
+output is separated by a blank space.</FONT></FONT></FONT></P>
+<TABLE WIDTH=741 CELLPADDING=2 CELLSPACING=0>
+	<COL WIDTH=343>
+	<COL WIDTH=386>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="widows: 0; orphans: 0"><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			</FONT></FONT></FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>'</FONT></FONT><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>BEGIN
+			{OFS=&quot;\t&quot;} {print $4,$2,$3,$1}</FONT></FONT></FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>'</FONT></FONT><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>
+			</FONT></FONT></FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>At.gff</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>We
+			want to create tab-separated output (default is space-separated
+			output)</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="widows: 0; orphans: 0"><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			</FONT></FONT></FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>'</FONT></FONT><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>BEGIN
+			{FS=&quot;,&quot;;OFS=&quot;\t&quot;} {print $4,$2,$3,$1}</FONT></FONT></FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>'</FONT></FONT><FONT COLOR="#000000"><FONT FACE="Courier New, serif"><FONT SIZE=2>
+			indB.txt</FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>We
+			have to change the input field separator as the input file
+			indB.txt is comma-separated (“,”)</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">&lt;END&gt;
+is used to print out a result.</FONT></FONT></FONT></P>
+<TABLE WIDTH=741 CELLPADDING=2 CELLSPACING=0>
+	<COL WIDTH=343>
+	<COL WIDTH=386>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			'{SUM+=$4} END {print SUM}' At.gff</FONT></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Print
+			out the sum of column 4 over the whole file</FONT></FONT></FONT></FONT></P>
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>In
+			awk variables do not need to be declared. When first used they are
+			0 when used a number or &quot;&quot; when used as a string.</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			'{SUM+=$4} END {print SUM/NR}' At.gff</FONT></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Print
+			out the mean of column 4</FONT></FONT></FONT></FONT></P>
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>NR:
+			variable containing the number of rows</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			'/gene/ {c++} END {print c}' At.gff</FONT></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Count
+			lines containing “gene”</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			'$4&gt;max {max=$4; maxline=$0} </FONT></FONT></FONT></FONT></FONT>
+			</P>
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>END
+			{print max,maxline}' At.gff</FONT></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Print
+			the maximum value of column 4 observed in the file</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			'$3!=&quot;chromosome&quot; &amp;&amp; $5-$4&gt;max {max=$5-$4;
+			maxline=$0} END {print max,maxline}' At.gff</FONT></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Print
+			the longest feature that is not a chromosome</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Awk
+is a Unix filter, it can be combined with other Unix tools by Piping</FONT></FONT></FONT></P>
+<TABLE WIDTH=741 CELLPADDING=2 CELLSPACING=0>
+	<COL WIDTH=343>
+	<COL WIDTH=386>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			'BEGIN {FS=&quot;\t&quot;} {print NF}' At.gff | sort | uniq -c </FONT></FONT></FONT></FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Handy
+			to check proper formatting – same number of columns over all
+			lines.</FONT></FONT></FONT></FONT></P>
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>NF
+			is the built-in variable containing the number of field/columns</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>zcat
+			file.gff.gz | awk '$1==&quot;chr1&quot; &amp;&amp; $2&gt;34 &amp;&amp;
+			$2&lt;453 {print $0} ' | wc -l</FONT></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Count
+			the number of entries fulfilling the conditions in a gzipped file.</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part3_html_15e79550.jpg" NAME="graphics2" ALIGN=BOTTOM WIDTH=24 HEIGHT=24 BORDER=0><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Some
+exercises to practice awk:</FONT></FONT></FONT></P>
+<OL>
+	<LI><P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">How
+	many exons are larger than 300nt?</FONT></FONT></FONT></P>
+	<LI><P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Write
+	an awk one-liner that prints the shortest feature annotated in the
+	file At.gff.<BR>(Hint: if you don't declare a variable it is 0)</FONT></FONT></FONT></P>
+	<LI><P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Find
+	out which is the shortest exon a) in the file At.gff b) in the file
+	TAIR10_GFF3_genes.gff.</FONT></FONT></FONT></P>
+</OL>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">You
+find many more awk one-liners under</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">http://www.pement.org/awk/awk1line.txt</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part3_html_a660a3f5.png" NAME="graphics3" ALIGN=BOTTOM WIDTH=24 HEIGHT=24 BORDER=0>
+<FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3><B>Exercise
+3 (Advanced): More awk functions</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Most
+people use awk just for one-liners like the examples from Exercise 2.
+This exercise is for people considering to learn more awk otherwise
+you can skip this exercise.</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Some
+more advanced awk examples:</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">We
+can also loop over the columns/fields of a line</FONT></FONT></FONT></P>
+<TABLE WIDTH=741 CELLPADDING=2 CELLSPACING=0>
+	<COL WIDTH=343>
+	<COL WIDTH=386>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			'NR &gt; 1 {s=0; for (i=2; i&lt;=NF; i++) s=s+$i; print s}'
+			file.txt</FONT></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Starts
+			from the second line (file with header!) and prints, for each
+			line, the sum of all the fields starting from the 2</FONT><SUP><FONT SIZE=2>nd</FONT></SUP><FONT SIZE=2>
+			column.</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">We
+can also read in two different files using the getline function</FONT></FONT></FONT></P>
+<TABLE WIDTH=741 CELLPADDING=2 CELLSPACING=0>
+	<COL WIDTH=343>
+	<COL WIDTH=386>
+	<TR>
+		<TD WIDTH=343 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>awk
+			'BEGIN{while((getline&lt;&quot;file1.txt&quot;)</FONT></FONT></FONT></FONT></FONT></P>
+			<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>&gt;0)lin[$1]=$0}$1
+			in lin {print $0&quot;\t&quot;lin[$1]}'</FONT></FONT></FONT></FONT></FONT></P>
+			<P><FONT COLOR="#000000"> <FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>file2.txt
+			&gt; output.txt</FONT></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=386 VALIGN=TOP STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Join
+			two files on column 1</FONT></FONT></FONT></FONT></P>
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Here
+			we use an array to make a lookup table from file1.txt (containing
+			the whole line) which we then use with file2.</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>What
+is possible with awk?</B></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part3_html_15e79550.jpg" NAME="graphics4" ALIGN=BOTTOM WIDTH=24 HEIGHT=24 BORDER=0>
+<FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Open
+the awk manual at <A HREF="https://www.gnu.org/software/gawk/manual/html_node/">https://www.gnu.org/software/gawk/manual/html_node/</A>
+(<SPAN LANG="de-CH">gawk is simply the GNU implementation of&nbsp;awk).
+Have a look at the built-in functions for
+<A HREF="https://www.gnu.org/software/gawk/manual/html_node/Built_002din.html">https://www.gnu.org/software/gawk/manual/html_node/Built_002din.html</A>
+, particularly the numeric and string functions.</SPAN></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Some
+frequently used string functions I have listed in a table:</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<TABLE WIDTH=449 CELLPADDING=6 CELLSPACING=0>
+	<COL WIDTH=188>
+	<COL WIDTH=233>
+	<TR VALIGN=TOP>
+		<TD WIDTH=188 HEIGHT=17 BGCOLOR="#4f81bd" STYLE="border-top: 1.00pt solid #ffffff; border-bottom: 3.00pt solid #ffffff; border-left: 1.00pt solid #ffffff; border-right: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE"><B>Action</B></SPAN></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=233 BGCOLOR="#4f81bd" STYLE="border-top: 1.00pt solid #ffffff; border-bottom: 3.00pt solid #ffffff; border-left: 1.00pt solid #ffffff; border-right: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE"><B>Function
+			name</B></SPAN></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR></TR>
+	<TR></TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=188 HEIGHT=19 BGCOLOR="#d0d8e8" STYLE="border-top: 3.00pt solid #ffffff; border-bottom: 1.00pt solid #ffffff; border-left: 1.00pt solid #ffffff; border-right: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE">extract</SPAN></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=233 BGCOLOR="#d0d8e8" STYLE="border-top: 3.00pt solid #ffffff; border-bottom: 1.00pt solid #ffffff; border-left: 1.00pt solid #ffffff; border-right: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE">substr()</SPAN></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=188 HEIGHT=19 BGCOLOR="#e9edf4" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE">search
+			text</SPAN></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=233 BGCOLOR="#e9edf4" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE">index(),
+			match()</SPAN></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=188 HEIGHT=19 BGCOLOR="#d0d8e8" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE">replace</SPAN></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=233 BGCOLOR="#d0d8e8" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE">sub(),
+			gsub(), gensub()</SPAN></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=188 HEIGHT=17 BGCOLOR="#e9edf4" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE">split</SPAN></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=233 BGCOLOR="#e9edf4" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE">split()</SPAN></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part3_html_a660a3f5.png" NAME="graphics5" ALIGN=BOTTOM WIDTH=24 HEIGHT=24 BORDER=0>
+<FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3><B>Exercise
+4: Regular Expressions</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Here
+we practice regular expression using R. We could use also the shell
+(grep/egrep, sed, awk), python (with the re module) or any other
+programming language.</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">You
+find the (complicated) documentation of regexps in R under</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><A HREF="http://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html">http://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html</A></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT COLOR="#ff0000">A
+speciality of R is that the meta-characters '\' and [] need to be
+doubled. E.g. the wildcard for an digit is \\d or [[:digit:]]</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>Functions
+that use regular expressions in R</B></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<TABLE WIDTH=573 CELLPADDING=6 CELLSPACING=0>
+	<COL WIDTH=188>
+	<COL WIDTH=356>
+	<TR VALIGN=TOP>
+		<TD WIDTH=188 HEIGHT=62 BGCOLOR="#d0d8e8" STYLE="border-top: 3.00pt solid #ffffff; border-bottom: 1.00pt solid #ffffff; border-left: 1.00pt solid #ffffff; border-right: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-CH">sub(),
+			gsub()</SPAN></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=356 BGCOLOR="#d0d8e8" STYLE="border-top: 3.00pt solid #ffffff; border-bottom: 1.00pt solid #ffffff; border-left: 1.00pt solid #ffffff; border-right: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE">Make
+			some substitutions in a string </SPAN></FONT></FONT></FONT>
+			</P>
+			<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE">sub()
+			replaces only the first occurence, gsub() all occurences</SPAN></FONT></FONT></FONT></P>
+			<P LANG="de-DE" STYLE="margin-bottom: 0cm"><BR>
+			</P>
+			<P LANG="de-CH"><BR>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=188 HEIGHT=58 BGCOLOR="#e9edf4" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE">grep()</SPAN></FONT></FONT></FONT></P>
+			<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE">regexpr(),
+			gregexpr()</SPAN></FONT></FONT></FONT></P>
+			<P LANG="de-DE" STYLE="margin-bottom: 0cm"><BR>
+			</P>
+			<P LANG="de-CH"><BR>
+			</P>
+		</TD>
+		<TD WIDTH=356 BGCOLOR="#e9edf4" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE">Extract
+			some value</SPAN></FONT></FONT></FONT></P>
+			<P LANG="de-CH"><BR>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=188 HEIGHT=19 BGCOLOR="#d0d8e8" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE">grepl()</SPAN></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=356 BGCOLOR="#d0d8e8" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE">Detect
+			the presence of a pattern</SPAN></FONT></FONT></FONT></P>
+			<P LANG="de-DE" STYLE="margin-bottom: 0cm"><BR>
+			</P>
+			<P LANG="de-CH"><BR>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=188 HEIGHT=17 BGCOLOR="#e9edf4" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE">strsplit</SPAN></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=356 BGCOLOR="#e9edf4" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE">Split
+			a string according to a pattern</SPAN></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part3_html_15e79550.jpg" NAME="graphics6" ALIGN=BOTTOM WIDTH=24 HEIGHT=24 BORDER=0>
+<FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Launch
+R. Run the following examples and check the output.</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">glob2rx()
+is a useful function for people beginning to use regular expressions:
+it takes a wildcard as used by most shells and returns an equivalent
+regular expression</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">&gt;
+glob2rx(&quot;*.txt&quot;)</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">[1]
+&quot;^.*\\.txt$&quot;</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">&gt;
+glob2rx(&quot;*.t*&quot;)</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">[1]
+&quot;^.*\\.t&quot;</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>Replacing
+text / Substitution</B></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">sub()
+and gsub() are for replacing text. sub() replaces only the first
+occurence, whereas gsub() replaces all occurences. Their arguments
+are &lt;pattern&gt; (the regular expression), &lt;replacement&gt;
+(the substitution pattern or capturing index) and &lt;x&gt; (the
+string to work on). &lt;x&gt; can be a single string or a vector
+containing multiple strings.</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">The
+simplest regular expression pattern are just literal characters:</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">&gt;
+string &lt;- &quot;23 mai 2000&quot;</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">&gt;
+sub(&quot;2000&quot;, &quot;2014&quot;, x=string)</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">[1]
+&quot;23 mai 2014&quot;</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">We
+can remove any white spaces (space, tab, end-of-line)</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">&gt;
+gsub('\\s', '', x=&quot; Hello World  &quot;)</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">[1]
+&quot;HelloWorld&quot;</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">But
+regular expressions have much more abilities. Here we use a more
+expressive notation [[:digit:]] as a wildcard for any number and
+[[:alpha:]] for any alphanumeric character.</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">&gt;
+sub(pattern = &quot;([[:digit:]]+\\.\\d{3})\\d+&quot;, replacement =
+&quot;\\1\\2&quot;, x = &quot;34.73322532&quot;) </FONT></FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">[1]
+&quot;34.733&quot;</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">&gt;
+regexp &lt;- &quot;([[:digit:]]{2}) ([[:alpha:]]+) ([[:digit:]]{4})&quot;</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">&gt;
+sub(pattern = regexp, replacement = &quot;\\1&quot;, x = string) </FONT></FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">#
+returns the first part of the regular expression</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">[1]
+&quot;23&quot;</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">&gt;
+sub(pattern = regexp, replacement = &quot;\\2&quot;, x = string) </FONT></FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">#
+returns the second part</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">[1]
+&quot;mai&quot;</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">&gt;
+sub(pattern = regexp, replacement = &quot;\\3&quot;, x = string) </FONT></FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">#
+returns the third part</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">[1]
+&quot;2000&quot;</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">In
+the above simple example we could also use strsplit() to split the
+character vector into substrings separated by &quot; &quot;. </FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">&gt;
+strsplit(string, split=&quot; &quot;)</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">[[1]]</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">[1]
+&quot;23&quot;   &quot;mai&quot;  &quot;2000&quot;</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>Escape
+special </B><FONT COLOR="#00000a"><B>characters ‘$ * + . ? [ ] ^ {
+} | ( ) \</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT COLOR="#ff0000">If
+you look for a meta-character ‘$ * + . ? [ ] ^ { } | ( ) \’,
+precede them with a doubled backslash. As they have a double meaning
+we need '\\' to interpret them as an ordinary characters.</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">In
+Arabidopsis, isoforms of a gene X are called like X.1, X.2, X.3.
+Sometimes we need a list of genes which we can achieve using a
+regular expression. We have It even works with X.11 or X.100.</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">&gt;
+sub(pattern = &quot;([^\\.]+)\\.[[:digit:]]&quot;, replacement =
+&quot;\\1&quot;, x = &quot;AT5G11100.3&quot;) </FONT></FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">[1]
+&quot;AT5G11100&quot;</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">sub(pattern
+= &quot;([^\\.]+)\\.[0123456789]&quot;, replacement = &quot;\\1&quot;,
+x = &quot;AT5G11100.3&quot;) </FONT></FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">[1]
+&quot;AT5G11100&quot;</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">sub(pattern
+= &quot;([A-z0-9]+).[0-9]&quot;, replacement = &quot;\\1&quot;, x =
+&quot;AT5G11100.3&quot;, perl=T) </FONT></FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">[1]
+&quot;AT5G11100&quot;</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">There
+are often many different ways to write a working regular expression.
+With [] we can define our own character clas. The ^ in square
+brackets means that it will match any character except the one
+written. Thus [^\\.] means any character but a dot. This way is a
+safe way to capture everything until the first dot.  </FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>Finding
+text</B></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">grep()
+tells you whether a regular expression matches the input string x. If
+it matches it returns 1 and if it does not match integer(0).</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">grep(pattern
+= &quot;21&quot;, x = &quot;21 Aug 2014&quot;)</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">[1]
+1</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">&gt;
+grep(pattern = &quot;\\d{2} \\w+ \\d{4}&quot;, x = &quot;21 Aug
+2014&quot;)</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">[1]
+1</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">&gt;
+grep(pattern = &quot;\\d{2} \\w+ \\d{4}&quot;, x = &quot;hello&quot;)</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">integer(0)</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>Format
+Checking</B></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Regular
+expressions are often used to check correct formatting. We want to
+check whether a string is correctly formatted doing grepl:</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">&gt;
+grepl(pattern = &quot;\\d{2} \\w+ \\d{4}&quot;, x = &quot;21 Aug
+2014&quot;)</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">[1]
+TRUE</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">or,
+alternatively, in a more expressive notation:</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">&gt;
+grepl(pattern = &quot;[[:digit:]]{2} [[:alpha:]]+ [[:digit:]]{4}&quot;,
+x = &quot;21 Aug 2014&quot;)</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">[1]
+TRUE</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">The
+following one is false since there is only one digit in the first
+number in x:</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">&gt;
+grepl(pattern = &quot;\\d{2} \\w+ \\d{4}&quot;, x = &quot;1 Aug
+2014&quot;)</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">[1]
+FALSE</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">grepl
+tells us that the pattern/regexp is matching our string. Here we
+check a single string, but x could also be a vector containing many
+elements. grepl will return a logical vector telling us for each
+element of the vector whether it math</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">regexpr()
+and gregexpr() are more verbose versions of grep(). In addition to
+the position of the match (counting from left) they also return the
+length of the match. -1 is the result if the regexp does not match at
+all. Again, regexpr() only returns the first occurrence whereas
+gregexpr() returns all occurences.</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">&gt;
+regexp &lt;- &quot;([[:digit:]]{2}) ([[:alpha:]]+) ([[:digit:]]{4})&quot;</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">&gt;
+string &lt;- &quot;blabla 23 mai 2000 blabla 18 mai 2004&quot;</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">&gt;
+regexpr(pattern = regexp, text = string)</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">[1]
+8</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">attr(,&quot;match.length&quot;)</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">[1]
+11</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">attr(,&quot;useBytes&quot;)</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">[1]
+TRUE</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">&gt;
+gregexpr(pattern = regexp, text = string)</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">[[1]]</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">[1]
+ 8 27</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">attr(,&quot;match.length&quot;)</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">[1]
+11 11</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">attr(,&quot;useBytes&quot;)</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier, serif">[1]
+TRUE</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>Application
+in Bioinformatics</B></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Regular
+expressions are used a lot for data mangling (format conversion). In
+addition, regular expressions are often used for parsing, e.g. if you
+want to extract information of a BLAST report (e.g. the Sequence ID
+or the E-value). Regular expressions can also be used to identify
+Sequence motifs, e.g. to search for a motif with 3 basic AAs in 5
+positions (see PROSITE). </FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>Final
+Comments</B></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>Trial
+and error:</B> Sometimes regular expressions do not behave as
+expected. In case of difficulties try to start simple, test parts of
+the regular expression and combine them once the subparts work. Often
+it also helps to do two rounds of replacements. Another level of
+complication is that there are 2 different types of regular
+expression, in R the default are 'extended regular expressions'
+(perl=FALSE) but there are also Perl-like regular expressions
+(perl=TRUE) that look different from the default type. It is easy to
+confuse them. Last, there unfortunately also differences between
+languages so that sometimes we have to find the correct version by
+trial and error.</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">If
+you use regular expressions a lot in R it might be worth looking into
+the 'stringr' package in CRAN that is a package dedicated to
+operations on strings. </FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part3_html_15e79550.jpg" NAME="graphics7" ALIGN=BOTTOM WIDTH=24 HEIGHT=24 BORDER=0></FONT></P>
+<OL>
+	<LI><P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Modify
+	some of the input strings and patterns/regular expression and check
+	whether they produce the expected results. You can e.g. add
+	additional text to the input string or<BR>remove parts of the
+	regexp.</FONT></FONT></FONT></P>
+	<LI><P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Try
+	out the 2 online tools (url given below). Choose the one that
+	appeals most to you. </FONT></FONT></FONT>
+	</P>
+</OL>
+<P STYLE="margin-left: 1.27cm; margin-bottom: 0cm; line-height: 115%">
+<FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Develop
+a regexp to remove the noninformative parts of sample names:
+X20120401_Jaggirun31_1367.05.1_05.RCC</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">	X20120401_Jaggirun31_1482.05.1_08.RCC</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>Sources
+&amp; Links</B></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Online
+tools to try regular expressions</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><A HREF="http://regex101.com/">http://regex101.com/</A></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><A HREF="http://www.regexr.com/">http://www.regexr.com/</A></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Regular
+expressions in R</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><A HREF="http://en.wikibooks.org/wiki/R_Programming/Text_Processing#Functions_which_use_regular_expressions_in_R">http://en.wikibooks.org/wiki/R_Programming/Text_Processing#Functions_which_use_regular_expressions_in_R</A></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Regular
+expression using sed</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><A HREF="http://www.grymoire.com/Unix/Sed.html#uh-4">http://www.grymoire.com/Unix/Sed.html#uh-4</A></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><A NAME="_GoBack"></A>
+<BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+</BODY>
+</HTML>

@@ -1,0 +1,1366 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE>Practical_bioinformatics_unix.docx</TITLE>
+	<META NAME="GENERATOR" CONTENT="LibreOffice 4.1.4.2 (MacOSX)">
+	<META NAME="CREATED" CONTENT="20131115;81200000000000">
+	<META NAME="CHANGEDBY" CONTENT="Stefan Wyder">
+	<META NAME="CHANGED" CONTENT="20131115;132300000000000">
+	<META NAME="AppVersion" CONTENT="14.0000">
+	<META NAME="Company" CONTENT="UZH">
+	<META NAME="DocSecurity" CONTENT="0">
+	<META NAME="HyperlinksChanged" CONTENT="false">
+	<META NAME="LinksUpToDate" CONTENT="false">
+	<META NAME="ScaleCrop" CONTENT="false">
+	<META NAME="ShareDoc" CONTENT="false">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { size: 21.59cm 27.94cm; margin-left: 2.54cm; margin-right: 2.54cm; margin-top: 1.27cm; margin-bottom: 2.54cm }
+		P { margin-bottom: 0.21cm; direction: ltr; widows: 2; orphans: 2 }
+		A:link { color: #0000ff; so-language: zxx }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" LINK="#0000ff" BGCOLOR="#ffffff" DIR="LTR">
+<DIV TYPE=HEADER>
+	<P STYLE="margin-bottom: 0cm"><BR>
+	</P>
+	<P STYLE="margin-bottom: 1.17cm"><BR>
+	</P>
+</DIV>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=5 STYLE="font-size: 20pt">Exercises
+Linux Tutorial  - Part 2</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part2_html_c773f128.jpg" NAME="Bild 28" ALIGN=BOTTOM WIDTH=741 HEIGHT=91 BORDER=0></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3>Stefan
+Wyder									Nov 2013</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3><B>URPP
+Evolution</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3>University
+of Zurich</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Many
+thanks to </FONT><FONT SIZE=2>Gregor Roth (von Mering group / IMLS,
+UZH) who agreed to share some exercises.</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part2_html_a660a3f5.png" NAME="image00.png" ALIGN=BOTTOM WIDTH=24 HEIGHT=24 BORDER=0><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3><B>Exercise
+1: connecting to a remote host, transferring files</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<TABLE WIDTH=524 CELLPADDING=6 CELLSPACING=0>
+	<COL WIDTH=248>
+	<COL WIDTH=248>
+	<TR VALIGN=TOP>
+		<TD WIDTH=248 HEIGHT=13 BGCOLOR="#4f81bd" STYLE="border-top: 1.00pt solid #ffffff; border-bottom: 3.00pt solid #ffffff; border-left: 1.00pt solid #ffffff; border-right: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE"><B>Command</B></SPAN></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=248 BGCOLOR="#4f81bd" STYLE="border-top: 1.00pt solid #ffffff; border-bottom: 3.00pt solid #ffffff; border-left: 1.00pt solid #ffffff; border-right: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE"><B>Task</B></SPAN></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR></TR>
+	<TR></TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=248 HEIGHT=15 BGCOLOR="#d0d8e8" STYLE="border-top: 3.00pt solid #ffffff; border-bottom: 1.00pt solid #ffffff; border-left: 1.00pt solid #ffffff; border-right: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE">ssh
+			-X </SPAN><SPAN LANG="de-DE"><I>user</I></SPAN><SPAN LANG="de-DE">@</SPAN><SPAN LANG="de-DE"><I>hostname</I></SPAN></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=248 BGCOLOR="#d0d8e8" STYLE="border-top: 3.00pt solid #ffffff; border-bottom: 1.00pt solid #ffffff; border-left: 1.00pt solid #ffffff; border-right: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE">Connect
+			to server</SPAN></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=248 HEIGHT=15 BGCOLOR="#e9edf4" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE">scp
+			&lt;what&gt; &lt;towhere&gt;</SPAN></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=248 BGCOLOR="#e9edf4" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE">Transfer
+			file from/to server</SPAN></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=248 HEIGHT=13 BGCOLOR="#d0d8e8" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE">sftp
+			</SPAN><SPAN LANG="de-DE"><I>user</I></SPAN><SPAN LANG="de-DE">@</SPAN><SPAN LANG="de-DE"><I>hostname</I></SPAN></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=248 BGCOLOR="#d0d8e8" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE">Transfer
+			file from/to server</SPAN></FONT></FONT></FONT></P>
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE">(interactive)</SPAN></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>ssh
+(&quot;secure shell&quot;) is a secure protocol for remote login and
+also for executing commands in a remote machine. To connect to a
+remote machine using ssh, simply type:</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000">
+</FONT><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>$
+</FONT></FONT><FONT FACE="Courier New, serif"><FONT SIZE=2><B>ssh</B></FONT></FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>
+username@130.60.201.40</FONT></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>inside
+your local computer shell. You will be asked for the password and
+after you successfully login, you can work with the remote machine in
+the same way as you work on your local machine. (You are dropped at
+your home directory). But ssh can’t transfer files, for that you
+can use another program called sftp. Disconnect before you go on to
+the next step (Ctrl+d).</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>$
+</FONT></FONT><FONT FACE="Courier New, serif"><FONT SIZE=2><B>sftp</B></FONT></FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>
+</FONT></FONT><FONT COLOR="#00000a"><FONT FACE="Courier New, serif"><FONT SIZE=2>username@130.60</FONT></FONT></FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>.201.40</FONT></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>After
+you are connected, you can use “cd”, “mkdir”, “rm” to
+navigate around and manipulate files on the remote computer. To
+upload a file from your local computer to the remote computer, simply
+use “put </FONT><FONT SIZE=2><I>filename</I></FONT><FONT SIZE=2>”.
+Filename here refers to a file on your local computer that will be
+uploaded to the remote computer.</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<TABLE WIDTH=5188 CELLPADDING=2 CELLSPACING=0>
+	<COL WIDTH=184>
+	<COL WIDTH=4996>
+	<TR>
+		<TD WIDTH=184 STYLE="border: none; padding: 0cm">
+			<P><FONT COLOR="#000000"><IMG SRC="Unix_Part2_html_15e79550.jpg" NAME="image02.jpg" ALIGN=BOTTOM WIDTH=24 HEIGHT=24 BORDER=0></FONT></P>
+		</TD>
+		<TD WIDTH=4996 VALIGN=TOP STYLE="border: none; padding: 0cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Create
+			a new file with </FONT><FONT SIZE=2><B>nano</B></FONT><FONT SIZE=2>
+			on your local computer. Save a few lines of text to the file.
+			Connect to the remote server using </FONT><FONT SIZE=2><B>sftp</B></FONT><FONT SIZE=2>
+			and upload the file using the </FONT><FONT SIZE=2><B>put</B></FONT><FONT SIZE=2>
+			command inside the sftp session.</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><SPAN DIR="LTR" STYLE="float: left; width: 16.51cm; height: 4.45cm; border: 1px solid #4f81bd; padding: 0.13cm 0.25cm; background: #ffffff">
+	<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT COLOR="#1f497d">For
+	Windows Users only:</FONT></FONT></FONT></FONT></P>
+	<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT COLOR="#1f497d">To
+	work on a server you don't need to first start Linux in a Virtual
+	Machine and to connect from there. There is an alternative by using
+	PuTTY, a SSH client. </FONT></FONT></FONT></FONT>
+	</P>
+	<OL>
+		<LI><P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT COLOR="#1f497d">Download
+		and install
+		PuTTY<BR><A HREF="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html</A></FONT></FONT></FONT></FONT></P>
+		<LI><P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT COLOR="#1f497d">Download
+		and install Xming (graphics emulation)</FONT></FONT></FONT></FONT></P>
+	</OL>
+	<P STYLE="margin-left: 1.27cm; margin-bottom: 0cm; line-height: 115%">
+	<FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><A HREF="http://www.straightrunning.com/XmingNotes/#head-13"><FONT COLOR="#1f497d">http://www.straightrunning.com/XmingNotes/#head-13</FONT></A></FONT></FONT></FONT></P>
+	<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT COLOR="#1f497d">For
+	file transfer use Use WinSCP or FileZilla</FONT></FONT></FONT></FONT></P>
+	<P STYLE="margin-bottom: 0cm"><BR>
+	</P>
+</SPAN><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part2_html_a660a3f5.png" NAME="graphics1" ALIGN=BOTTOM WIDTH=24 HEIGHT=24 BORDER=0><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3><B>Exercise
+2: Writing and executing a perl script</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Many
+scripts in bioinformatics are written in perl. You have used the </FONT><FONT SIZE=2><B>nano</B></FONT><FONT SIZE=2>
+editor from the first exercise in part 1 of the Tutorial. Try to
+copy/paste the below simple perl program into a file and execute it.
+The hello world perl script:</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>#!/usr/bin/perl<BR>print
+&quot;Hello World.\n&quot;;</FONT></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Copy
+the above 2 lines and save them to the file “</FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>hello.pl</FONT></FONT><FONT SIZE=2>”.
+The first line tells the Unix shell to interpret the program with
+</FONT><FONT SIZE=2><B>perl</B></FONT><FONT SIZE=2>. In order to run
+the program you can either start it with:</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>$
+perl hello.pl</FONT></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>The
+output on the screen should be “Hello World.”</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Or
+you can make your file executable by typing:</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>$
+chmod +x hello.pl</FONT></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>And
+now you can simply type:</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>$
+./hello.pl</FONT></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Note
+the “</FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>./</FONT></FONT><FONT SIZE=2>”
+at the start of the command. This is because the directory where we
+stored </FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>hello.pl</FONT></FONT><FONT SIZE=2>
+is not in the system variable </FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>$PATH</FONT></FONT><FONT SIZE=2>.</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Check
+the file's permissions using ls -l. Remove the permission to execute
+it and check the permissions again.</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part2_html_a660a3f5.png" NAME="graphics2" ALIGN=BOTTOM WIDTH=24 HEIGHT=24 BORDER=0>
+<FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3><B>Exercise
+3: Compressing/Decompressing files</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2><B>File
+compression and decompression</B></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<TABLE WIDTH=662 CELLPADDING=6 CELLSPACING=0>
+	<COL WIDTH=312>
+	<COL WIDTH=323>
+	<TR VALIGN=TOP>
+		<TD WIDTH=312 HEIGHT=17 BGCOLOR="#4f81bd" STYLE="border-top: 1.00pt solid #ffffff; border-bottom: 3.00pt solid #ffffff; border-left: 1.00pt solid #ffffff; border-right: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE"><B>Command</B></SPAN></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=323 BGCOLOR="#4f81bd" STYLE="border-top: 1.00pt solid #ffffff; border-bottom: 3.00pt solid #ffffff; border-left: 1.00pt solid #ffffff; border-right: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN LANG="de-DE"><B>Meaning</B></SPAN></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR></TR>
+	<TR></TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=312 HEIGHT=12 BGCOLOR="#d0d8e8" STYLE="border-top: 3.00pt solid #ffffff; border-bottom: 1.00pt solid #ffffff; border-left: 1.00pt solid #ffffff; border-right: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>gzip
+			</B></FONT><FONT SIZE=2><I>filename</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=323 BGCOLOR="#d0d8e8" STYLE="border-top: 3.00pt solid #ffffff; border-bottom: 1.00pt solid #ffffff; border-left: 1.00pt solid #ffffff; border-right: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>compress
+			file with gzip <BR>(adds .gz extension)</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=312 HEIGHT=12 BGCOLOR="#e9edf4" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>gunzip
+			</B></FONT><FONT SIZE=2><I>filename.gz</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=323 BGCOLOR="#e9edf4" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>decompress
+			file with gzip <BR>(removes .gz extension)</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=312 HEIGHT=12 BGCOLOR="#d0d8e8" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>zmore
+			</B></FONT><FONT SIZE=2><I>filename.gz<BR></I></FONT><FONT SIZE=2><B>zless
+			</B></FONT><FONT SIZE=2><I>filename.gz</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=323 BGCOLOR="#d0d8e8" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>display
+			file content of a gzip compressed file</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=312 HEIGHT=12 BGCOLOR="#e9edf4" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>tar
+			xfz </B></FONT><FONT SIZE=2><I>filename.tar.gz</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=323 BGCOLOR="#e9edf4" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>extract/decompress
+			files from tar.gz archive</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=312 HEIGHT=12 BGCOLOR="#d0d8e8" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>tar</B></FONT><FONT SIZE=2>
+			</FONT><FONT SIZE=2><B>zcvf</B></FONT><FONT SIZE=2> </FONT><FONT SIZE=2><I>archive.tar.gz
+			folder_to_compress</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=323 BGCOLOR="#d0d8e8" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>creates
+			archive.tar.gz</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=312 HEIGHT=12 BGCOLOR="#e9edf4" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>unzip
+			</B></FONT><FONT SIZE=2><I>filename.zip</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=323 BGCOLOR="#e9edf4" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>unzip
+			archive</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=312 HEIGHT=10 BGCOLOR="#d0d8e8" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>zgrep
+			</B></FONT><FONT SIZE=2>pattern</FONT><FONT SIZE=2><B> </B></FONT><FONT SIZE=2><I>filename.gz</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=323 BGCOLOR="#d0d8e8" STYLE="border: 1.00pt solid #ffffff; padding: 0.13cm 0.25cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>search
+			text/pattern in a compressed file</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Use
+the program </FONT><FONT SIZE=2><B>wget</B></FONT><FONT SIZE=2> to
+download the FASTA file of proteins from:</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><A HREF="ftp://ftp.ensembl.org/pub/release-71/fasta/homo_sapiens/pep/Homo_sapiens.GRCh37.71.pep.all.fa.gz"><FONT COLOR="#1155cc"><FONT SIZE=2><U>ftp://ftp.ensembl.org/pub/release-71/fasta/homo_sapiens/pep/Homo_sapiens.GRCh37.71.pep.all.fa.gz</U></FONT></FONT></A></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>When
+downloaded, </FONT><FONT SIZE=2><B>gunzip</B></FONT><FONT SIZE=2> the
+file. Then count how many proteins are in the file (<IMG SRC="Unix_Part2_html_cd372b94.png" NAME="image01.png" ALIGN=BOTTOM WIDTH=25 HEIGHT=25 BORDER=0>use
+</FONT><FONT SIZE=2><B>grep</B></FONT><FONT SIZE=2> and </FONT><FONT SIZE=2><B>wc</B></FONT><FONT SIZE=2>).</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Now
+</FONT><FONT SIZE=2><B>gzip</B></FONT><FONT SIZE=2> the file and try
+to count the number of proteins without using </FONT><FONT COLOR="#00000a"><FONT SIZE=2><B>gunzip</B></FONT></FONT><FONT SIZE=2>.</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><SPAN DIR="LTR" STYLE="float: left; width: 16.19cm; height: 2.43cm; border: 1px solid #4f81bd; padding: 0.13cm 0.25cm; background: #ffffff">
+	<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT COLOR="#1f497d">For
+	Mac OS X users only:</FONT></FONT></FONT></FONT></P>
+	<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT COLOR="#1f497d">On
+	Mac OS X wget is not available by default, you can install it with
+	your favorite package manager e.g if you have installed homebrew,
+	simply type: brew install wget <BR>Alternatively, if you don’t
+	want to install wget, use a web browser to download the file.</FONT></FONT></FONT></FONT></P>
+	<P STYLE="margin-bottom: 0cm"><BR>
+	</P>
+</SPAN><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part2_html_a660a3f5.png" NAME="graphics3" ALIGN=BOTTOM WIDTH=24 HEIGHT=24 BORDER=0><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3><B>Exercise
+4: Write a simple bash script</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Often,
+you would like to run the same command with different parameters. As
+an exercise, write a simple bash script that will output numbers from
+1 to 100. Use a </FONT><FONT SIZE=2><B>for</B></FONT><FONT SIZE=2>
+loop.</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>#!/bin/bash</FONT></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>for
+i in {1..100}</FONT></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>do</FONT></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000">
+  <FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>echo
+$i</FONT></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>done</FONT></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Save
+the above code to a file (e.g. </FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>script.sh</FONT></FONT><FONT SIZE=2>),
+make the file executable (+x flag) and run it.</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part2_html_15e79550.jpg" NAME="graphics4" ALIGN=BOTTOM WIDTH=24 HEIGHT=24 BORDER=0><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>What
+is the output?</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part2_html_a660a3f5.png" NAME="graphics5" ALIGN=BOTTOM WIDTH=24 HEIGHT=24 BORDER=0>
+<FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3><B>Exercise
+5: Iterating over files</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>First
+lets prepare some files: Make a new directory called FASTAS and
+change into the new directory. </FONT></FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Copy
+10 Fasta files from the server by typing:</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>$
+scp <A HREF="mailto:studi15@130.60.201.40:~/FASTAS/seq*">studi15@130.60.201.40:~/FASTAS/*</A>
+. </FONT></FONT></FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>By
+using the same concept (</FONT><FONT SIZE=2><B>for</B></FONT><FONT SIZE=2>
+loop) from exercise 4, can you try to iterate over all fasta files in
+a directory, print their name and the sequence length in each file?</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part2_html_cd372b94.png" NAME="graphics6" ALIGN=BOTTOM WIDTH=25 HEIGHT=25 BORDER=0><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>for
+filename in *.fasta</FONT></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>1.
+Use </FONT><FONT SIZE=2><B>wc</B></FONT><FONT SIZE=2> to count the
+sequence length in each file. Make sure not to include the sequence
+header</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>2.
+Count the number of Methionines (M) in each sequence (use </FONT><FONT COLOR="#00000a"><FONT SIZE=2>grep</FONT></FONT><FONT SIZE=2>
+-o)</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part2_html_a660a3f5.png" NAME="graphics7" ALIGN=BOTTOM WIDTH=24 HEIGHT=24 BORDER=0><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3><B>*
+Exercise 6: Reading in arguments</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>We
+often need to pass information to our script (e.g. for a cut-off, a
+parameter or an input file). </FONT></FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>#!/bin/bash</FONT></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>firstarg=$1</FONT></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>secondarg=$2</FONT></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>echo
+&quot;You have entered \&quot;$firstarg\&quot; and \&quot;$secondarg\&quot;&quot;</FONT></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>The
+backslash in front of &quot; is needed for escaping as &quot; is used
+a string delimiter. </FONT></FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Try
+to write a shell script which takes as argument a filename. The
+script shall then display all Arabidopsis genes contained in the
+file. Use as input file TAIR10_GFF3_genes.gff from part 1 of the
+tutorial.</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part2_html_a660a3f5.png" NAME="graphics8" ALIGN=BOTTOM WIDTH=24 HEIGHT=24 BORDER=0>
+<FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3><B>Exercise
+7: Download and install bowtie2 software</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Bowtie2
+is a short-sequence read aligner (e.g. 150nt long). The reads are
+aligned to a reference sequence (e.g. human genome).</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Make
+a new ~/software directory and download bowtie2 source code using
+</FONT><FONT SIZE=2><B>wget</B></FONT><FONT SIZE=2> from this link:</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><A HREF="http://downloads.sourceforge.net/project/bowtie-bio/bowtie2/2.1.0/bowtie2-2.1.0-source.zip?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fbowtie-bio%2Ffiles%2Fbowtie2%2F2.1.0%2F&amp;ts=1368102757&amp;use_mirror=heanet"><FONT COLOR="#1155cc"><FONT SIZE=2><U>http://downloads.sourceforge.net/project/bowtie-bio/bowtie2/2.1.0/bowtie2-2.1.0-source.zip</U></FONT></FONT></A></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Unzip
+the file, change to the unzipped folder and compile the source by
+running </FONT><FONT SIZE=2><B>make</B></FONT><FONT SIZE=2>:</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>$
+make</FONT></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>You
+have compiled your first program. If you got an error message first
+install the gcc compiler on your system (see Appendix) and then
+repeat </FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>make</FONT></FONT><FONT SIZE=2>.
+You can now try to run bowtie2:</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>$
+./bowtie2</FONT></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Since
+bowtie2 directory is not in the $PATH environment variable (a list of
+directory locations which Unix searches for commands when you try to
+run them), you can only run it from the bowtie2-2.1.0 folder or by
+providing the full path (e.g under Linux:
+</FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>/home/swyder/software/bowtie...
+</FONT></FONT><FONT SIZE=2>or under Mac OS X:</FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>
+/Users/swyder/software/bowtie</FONT></FONT><FONT SIZE=2>). You can
+add the bowtie2 folder to the $PATH:</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>$
+export PATH=$PATH:/home/</FONT></FONT><FONT FACE="Courier New, serif"><FONT SIZE=2><B>username</B></FONT></FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>/software/bowtie2-2.1.0</FONT></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Now
+you can simply type “</FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>bowtie2</FONT></FONT><FONT SIZE=2>”
+anywhere (in any directory) and the </FONT><FONT SIZE=2><B>shell</B></FONT><FONT SIZE=2>
+will find the </FONT><FONT SIZE=2><B>bowtie2</B></FONT><FONT SIZE=2>
+software. The modification to $PATH affects only the current window
+until it is closed – you have to add it to ~/.bash_profile to make
+it permanent.</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part2_html_a660a3f5.png" NAME="graphics9" ALIGN=BOTTOM WIDTH=24 HEIGHT=24 BORDER=0>
+<FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3><B>Exercise
+8: Try out your package manager</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>You
+can often save time and work using the package manager as compiling
+software from source can be painful and time-consuming. The package
+manager helps you to install, upgrade and remove software. But first
+we have to check whether a software is available in the repositories.
+Try out the package manager of your system:</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><SPAN DIR="LTR" STYLE="float: left; width: 16.51cm; height: 6.16cm; border: 1px solid #1f497d; padding: 0.13cm 0.25cm; background: #ffffff">
+	<P STYLE="margin-bottom: 0cm"><FONT COLOR="#1f497d">For Ubuntu
+	users:</FONT></P>
+	<P STYLE="margin-bottom: 0cm"><FONT COLOR="#1f497d"><BR>The Linux
+	package management systems are comprehensive (for Ubuntu &gt; 35'000
+	software packages), powerful and still easy to use – one of the
+	advantages of the Linux world.  It also checks automatically for
+	software updates and your system will propose you from time to time
+	to upgrade your system. <BR><BR>You can interact with the package
+	manager using a graphical user interface or the command line.  There
+	is a sort of App Store called &quot;Ubuntu Software Center&quot;
+	which includes software reviews. To run it, click on topmost icon in
+	the dock on the left and type &quot;Ubuntu Software Center&quot; in
+	the search field. Try it.</FONT></P>
+	<P STYLE="margin-bottom: 0cm"><BR>
+	</P>
+	<P STYLE="margin-bottom: 0cm"><BR>
+	</P>
+	<P STYLE="margin-bottom: 0cm"><BR>
+	</P>
+	<P STYLE="margin-bottom: 0cm"><BR>
+	</P>
+</SPAN><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><SPAN DIR="LTR" STYLE="float: left; width: 16.51cm; height: 7.52cm; border: 1px solid #1f497d; padding: 0.13cm 0.25cm; background: #ffffff">
+	<P STYLE="margin-bottom: 0cm"><FONT COLOR="#1f497d">For Mac OS X
+	users:</FONT></P>
+	<P STYLE="margin-bottom: 0cm"><BR>
+	</P>
+	<P STYLE="margin-bottom: 0cm"><FONT COLOR="#1f497d">Unfortunately
+	the package managers for Mac OS X are lagging behind the Linux
+	world.  But if you work regularly on the command line you will need
+	a package manager. The best one in my opinion is homebrew.  To
+	install it, you first need to install the command line tools from
+	XCode (see Appendix). Once they are installed go to the homebrew
+	website and follow the instructions there. <BR><BR>Check for some
+	software you know whether it is available under homebrew (or in your
+	package manager of choice). To check bowtie2 e.g. type in the
+	terminal:</FONT></P>
+	<P STYLE="margin-bottom: 0cm"><FONT COLOR="#1f497d"><FONT FACE="Courier New, serif">$
+	brew search bowtie2</FONT></FONT></P>
+	<P STYLE="margin-bottom: 0cm"><FONT COLOR="#1f497d"><FONT FACE="Courier New, serif">$
+	brew install </FONT></FONT><FONT COLOR="#1f497d"><FONT FACE="Courier New, serif"><I>PackageName<BR></I></FONT></FONT><BR>
+	</P>
+	<P STYLE="margin-bottom: 0cm"><FONT COLOR="#1f497d">To get help on
+	brew, simply type </FONT><FONT COLOR="#1f497d"><FONT FACE="Courier New, serif">brew</FONT></FONT></P>
+	<P STYLE="margin-bottom: 0cm"><BR>
+	</P>
+	<P STYLE="margin-bottom: 0cm"><BR>
+	</P>
+</SPAN><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part2_html_a660a3f5.png" NAME="graphics10" ALIGN=BOTTOM WIDTH=24 HEIGHT=24 BORDER=0><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3><B>*
+Exercise 9: Exploring a FASTA format file</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><I>Moraxella
+catarrhalis</I></FONT><FONT SIZE=2>
+(http://www.ncbi.nlm.nih.gov/nuccore/NC_014147) is an interesting
+Gram-negative Gammaproteobacterium and a human pathogen of the
+respiratory tract. The whole genome sequence is already available on
+the server in the </FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>Morax/NC_014147.fasta</FONT></FONT><FONT SIZE=2>
+file. The FASTA format is widely used in sequence distribution, see
+the description at </FONT><A HREF="http://en.wikipedia.org/wiki/FASTA_format"><FONT COLOR="#1155cc"><FONT SIZE=2><U>http://en.wikipedia.org/wiki/FASTA_format</U></FONT></FONT></A><FONT SIZE=2>.</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Use
+</FONT><FONT SIZE=2><B>grep</B></FONT><FONT SIZE=2> to find out how
+many chromosomes are present in the file. Use </FONT><FONT SIZE=2><B>grep</B></FONT><FONT SIZE=2>
+(<IMG SRC="Unix_Part2_html_cd372b94.png" NAME="graphics11" ALIGN=BOTTOM WIDTH=25 HEIGHT=25 BORDER=0>-v)
+to only print out the genomic sequence. How large is the genome?</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Now
+look at the RNA-seq data sample stored in the </FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>Morax/rnaseq.fasta.gz</FONT></FONT><FONT SIZE=2>
+file. This file includes qualities for each nucleotide (see FASTQ
+description at </FONT><A HREF="http://en.wikipedia.org/wiki/FASTQ_format"><FONT COLOR="#1155cc"><FONT SIZE=2><U>http://en.wikipedia.org/wiki/FASTQ_format</U></FONT></FONT></A><FONT SIZE=2>).</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part2_html_15e79550.jpg" NAME="graphics12" ALIGN=BOTTOM WIDTH=24 HEIGHT=24 BORDER=0><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>How
+many reads are in the file?</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part2_html_a660a3f5.png" NAME="graphics13" ALIGN=BOTTOM WIDTH=24 HEIGHT=24 BORDER=0><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3><B>*
+Exercise 10: Searching for short sequences in the </B></FONT><FONT SIZE=3><I><B>Moraxella
+catarrhalis</B></I></FONT><FONT SIZE=3><B> genome</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part2_html_15e79550.jpg" NAME="graphics14" ALIGN=BOTTOM WIDTH=24 HEIGHT=24 BORDER=0><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Is
+the sequence “CTGTATCACCGATTT” present in the </FONT><FONT SIZE=2><I>Moraxella</I></FONT><FONT SIZE=2>
+genome (</FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>Morax/</FONT></FONT>
+<FONT FACE="Courier New, serif"><FONT SIZE=2>NC_014147.fasta</FONT></FONT><FONT SIZE=2>)?</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part2_html_cd372b94.png" NAME="graphics15" ALIGN=BOTTOM WIDTH=25 HEIGHT=25 BORDER=0><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>You
+can simply use </FONT><FONT SIZE=2><B>grep</B></FONT><FONT SIZE=2> to
+find out.</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>You
+can also use </FONT><FONT SIZE=2><B>bowtie2</B></FONT><FONT SIZE=2>.
+First build the index of the </FONT><FONT SIZE=2><I>Moraxella</I></FONT><FONT SIZE=2>
+reference genome. The format is: “</FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>bowtie2-build
+&lt;fasta_file&gt; &lt;custom_index_name&gt;”</FONT></FONT><FONT SIZE=2>.
+In the Morax folder, you could use:</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>$
+bowtie2-build NC_014147.fasta Morax</FONT></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Once
+the index is created (you do this only once for each reference
+genome, i.e. each FASTA file), you align one read (sequence) to the
+genome by typing:</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>$
+bowtie2 Morax -ac CTGTATCACCGATTT &gt; Morax.sam</FONT></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Explore
+the SAM results file with “</FONT><FONT FACE="Courier New, serif"><FONT SIZE=2>less
+-S</FONT></FONT><FONT SIZE=2>”. The parameter “-S” prevents
+line wraps, so you can see one alignment per line.</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part2_html_15e79550.jpg" NAME="graphics16" ALIGN=BOTTOM WIDTH=24 HEIGHT=24 BORDER=0><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Does
+</FONT><FONT SIZE=2><B>bowtie2</B></FONT><FONT SIZE=2> find more
+alignments compared to grep? Why could that be?</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><IMG SRC="Unix_Part2_html_a660a3f5.png" NAME="graphics17" ALIGN=BOTTOM WIDTH=24 HEIGHT=24 BORDER=0><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3><B>*
+Exercise 11: Alignment of RNA-seq sample reads to the </B></FONT><FONT SIZE=3><I><B>Moraxella
+catarrhalis</B></I></FONT><FONT SIZE=3><B> genome</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>To
+align the RNA-seq reads in the rnaseq.fastq file, you first need to
+index the </FONT><FONT SIZE=2><I>Moraxella catarrhalis </I></FONT><FONT SIZE=2>genome.
+Use bowtie2-build to create an index with name </FONT><FONT SIZE=2><B>Morax</B></FONT><FONT SIZE=2>.</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>$
+bowtie2-build fasta_file custom_index_name</FONT></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>After
+you created the index, you can align the reads by typing:</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT FACE="Courier New, serif"><FONT SIZE=2>$
+bowtie2 Morax -U rnaseq.fastq.gz &gt; Morax2.sam</FONT></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>The
+results are returned in SAM format and stored to the Morax2.sam file.
+How many reads align?</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Check
+what are the options of bowtie2. Use Bowtie2 manual
+(</FONT><A HREF="http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml"><FONT COLOR="#1155cc"><FONT SIZE=2><U>http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml</U></FONT></FONT></A><FONT SIZE=2>)
+to explore and change parameters. How do different parameters
+influence your results?</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Appendix</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3><B>Installation
+of the gcc compiler for C/C++</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3>Typically
+open-source software is written in C/C++, to compile it from source
+(and make a binary) one needs a compiler. If its not available on
+your system, you have to install it<BR></FONT></FONT></FONT></FONT><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><A NAME="_GoBack"></A>
+<IMG SRC="Unix_Part2_html_2d55ac32.gif" ALIGN=LEFT><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3><B>Linux</B></FONT><FONT SIZE=3>:
+install the C++ compiler using the package manager is very easy,
+under Ubuntu simply type in the terminal: sudo apt-get install g++ .
+Of course we could install the package also by using the &quot;Ubuntu
+Software Center&quot;. <BR></FONT></FONT></FONT></FONT><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3><B>Mac
+OS X</B></FONT><FONT SIZE=3>: Depending on the version of Mac OS X
+you are using installation differs. First you have to install the
+command line tools of XCode, you have 3 different options:</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3><B>Option
+1</B></FONT><FONT SIZE=3> (easy, but large download of 2Gb, only if
+you have enough free disk space): install the whole Xcode via the the
+App Store. In XCode select &lt;Preferences | Downloads&lt; then
+&lt;Command Line Tools&gt; </FONT></FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3><B>Option
+2</B></FONT><FONT SIZE=3> (a bit more steps, but you save a lot of
+disk space):<BR>Go to <A HREF="https://developer.apple.com/xcode/">https://developer.apple.com/xcode/</A>
+choose &lt;View downloads&gt;, log in (or register first, its free),
+type &lt;command line tools&gt; in the search field, then select the
+correct version for your version of Mac OS X, download and install
+it. </FONT></FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3><B>Option
+3</B></FONT><FONT SIZE=3> (not tested): <BR>OSX GCC Installer</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3>Go
+to https://github.com/kennethreitz/osx-gcc-installer/ and follow the
+instructions there</FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=3><BR></FONT></FONT></FONT></FONT><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%; page-break-before: always">
+<BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>Getting
+help</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<TABLE WIDTH=741 CELLPADDING=2 CELLSPACING=0>
+	<COL WIDTH=179>
+	<COL WIDTH=550>
+	<TR VALIGN=TOP>
+		<TD WIDTH=179 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>man
+			</B></FONT><FONT SIZE=2><I>command</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=550 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>display
+			manual page of command</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=179 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><I>command</I></FONT><FONT SIZE=2><B>
+			-h</B></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=550 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>display
+			shorter manual page of command (only GNUtools, not in Mac OS X)</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=179 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><I>Program</I></FONT><FONT SIZE=2><B>
+			--help</B></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=550 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>display
+			help / usage information for software/scripts </FONT></FONT></FONT></FONT>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=179 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><I>Program</I></FONT><FONT SIZE=2><B>
+			-h</B></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=550 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>display
+			help / usage information for software/scripts</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>File
+and folder manipulation</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<TABLE WIDTH=719 CELLPADDING=2 CELLSPACING=0>
+	<COL WIDTH=320>
+	<COL WIDTH=387>
+	<TR VALIGN=TOP>
+		<TD WIDTH=320 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>pwd</B></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=387 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>display
+			current folder</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=320 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>ls
+			-l </B></FONT><FONT SIZE=2><I>path</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=387 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>list
+			files and folders</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=320 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>cd
+			</B></FONT><FONT SIZE=2><I>path</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=387 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>change
+			folder to path</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=320 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>cd</B></FONT><FONT SIZE=2>
+			~</FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=387 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>change
+			folder to home folder</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=320 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>mkdir</B></FONT><FONT SIZE=2>
+			</FONT><FONT SIZE=2><I>dir_name</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=387 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>make
+			folder</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=320 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>rmdir</B></FONT><FONT SIZE=2>
+			</FONT><FONT SIZE=2><I>dir_name</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=387 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>remove
+			folder</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=320 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>cp</B></FONT><FONT SIZE=2>
+			</FONT><FONT SIZE=2><I>source</I></FONT><FONT SIZE=2> </FONT><FONT SIZE=2><I>dest</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=387 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>copy
+			file/folder and all its contents</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2><B>File
+compression and decompression</B></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<TABLE WIDTH=719 CELLPADDING=2 CELLSPACING=0>
+	<COL WIDTH=320>
+	<COL WIDTH=387>
+	<TR VALIGN=TOP>
+		<TD WIDTH=320 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>gzip
+			</B></FONT><FONT SIZE=2><I>filename</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=387 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>compress
+			file with gzip (adds .gz extension)</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=320 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>gunzip
+			</B></FONT><FONT SIZE=2><I>filename.gz</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=387 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="margin-left: -0.04cm; margin-right: 2.11cm; text-indent: -2.25cm">
+			<FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>decompress
+			fildecompress file with gzip (removes .gz extension)</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=320 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>zmore
+			</B></FONT><FONT SIZE=2><I>filename.gz<BR></I></FONT><FONT SIZE=2><B>zless
+			</B></FONT><FONT SIZE=2><I>filename.gz</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=387 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="margin-left: -0.04cm; margin-right: 2.11cm; text-indent: -2.25cm">
+			<FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>fildecompress
+			display file content of a gzip compressed file</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=320 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>tar
+			xfz </B></FONT><FONT SIZE=2><I>filename.tar.gz</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=387 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>extract/decompress
+			files from tar.gz archive</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=320 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>tar</B></FONT><FONT SIZE=2>
+			</FONT><FONT SIZE=2><B>zcvf</B></FONT><FONT SIZE=2> </FONT><FONT SIZE=2><I>archive.tar.gz
+			folder_to_compress</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=387 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>creates
+			archive.tar.gz</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=320 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>unzip
+			</B></FONT><FONT SIZE=2><I>filename.zip</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=387 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>unzip
+			archive</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=320 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>zgrep
+			</B></FONT><FONT SIZE=2>pattern</FONT><FONT SIZE=2><B> </B></FONT><FONT SIZE=2><I>filename.gz</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=387 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>search
+			text/pattern in a compressed file</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>Text
+processing</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<TABLE WIDTH=719 CELLPADDING=2 CELLSPACING=0>
+	<COL WIDTH=320>
+	<COL WIDTH=387>
+	<TR VALIGN=TOP>
+		<TD WIDTH=320 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>grep
+			</B></FONT><FONT SIZE=2>pattern</FONT><FONT SIZE=2><B> </B></FONT><FONT SIZE=2><I>filename</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=387 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>search
+			text/pattern</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=320 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>cut
+			</B></FONT></FONT></FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=387 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>extract
+			column</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=320 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>tr</B></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=387 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>substitute/delete
+			text/pattern</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=320 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>less</B></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=387 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>display
+			file content</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=320 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>wc</B></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=387 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>count
+			number of lines in file</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=320 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>sort</B></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=387 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>sort
+			lines</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=320 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>uniq
+			</B></FONT></FONT></FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=387 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>remove
+			lines occurring more than once</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=320 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>comm
+			</B></FONT><FONT SIZE=2><I>filename</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=387 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>compress
+			file with gzip (adds .gz extension)</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>Network
+and file transfer</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<TABLE WIDTH=629 CELLPADDING=2 CELLSPACING=0>
+	<COL WIDTH=158>
+	<COL WIDTH=459>
+	<TR VALIGN=TOP>
+		<TD WIDTH=158 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>wget
+			</B></FONT><FONT SIZE=2>URL</FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=459 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>download
+			file (also html page) and save to current folder</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=158 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>ssh
+			</B></FONT><FONT SIZE=2>–X</FONT><FONT SIZE=2><B> </B></FONT><FONT SIZE=2><I>username@host</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=459 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>remote
+			login to host with username<BR>disconnect by Ctrl+d</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=158 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>sftp
+			</B></FONT><FONT SIZE=2>username@host</FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=459 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>remote
+			login to host with username and transfer files</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=158 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>scp
+			</B></FONT><FONT SIZE=2>source target</FONT></FONT></FONT></FONT></P>
+			<P><BR>
+			</P>
+		</TD>
+		<TD WIDTH=459 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>copy
+			files from/to host</FONT></FONT></FONT></FONT></P>
+			<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>scp
+			username@host:~/path/</FONT><FONT SIZE=2><I>file</I></FONT><FONT SIZE=2>
+			.</FONT></FONT></FONT></FONT></P>
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>scp
+			</FONT><FONT SIZE=2><I>file</I></FONT><FONT SIZE=2>
+			username@host:~/path</FONT><FONT SIZE=2><I>/file</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>Permissions
+and Ownership</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>These
+commands also work on directories</FONT></FONT></FONT></FONT></P>
+<TABLE WIDTH=629 CELLPADDING=2 CELLSPACING=0>
+	<COL WIDTH=158>
+	<COL WIDTH=459>
+	<TR VALIGN=TOP>
+		<TD WIDTH=158 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>chmod
+			</B></FONT><FONT SIZE=2>ug+rx </FONT><FONT SIZE=2><I>filename</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=459 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>Set
+			write and execute permissions to user and group</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=158 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>chown
+			</B></FONT><FONT SIZE=2>user </FONT><FONT SIZE=2><I>filename</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=459 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>changes
+			user ownership</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=158 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>chgrp
+			</B></FONT><FONT SIZE=2>group </FONT><FONT SIZE=2><I>filename</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=459 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>changes
+			group ownership</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=158 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>chown</B></FONT><FONT SIZE=2>
+			user:group </FONT><FONT SIZE=2><I>filename</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=459 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>changes
+			user &amp; group ownership</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>System
+information &amp; processes</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<TABLE WIDTH=741 CELLPADDING=2 CELLSPACING=0>
+	<COL WIDTH=179>
+	<COL WIDTH=550>
+	<TR VALIGN=TOP>
+		<TD WIDTH=179 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>uname
+			-a</B></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=550 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>display
+			system information</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=179 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>df
+			-h</B></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=550 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>list
+			mounted disks with available space</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=179 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>du
+			-h </B></FONT><FONT SIZE=2><I>path</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=550 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>show
+			space usage</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=179 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>top</B></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=550 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>display
+			running processes</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=179 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>kill
+			-9 </B></FONT><FONT SIZE=2><I>pid</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=550 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>kill
+			process</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><FONT COLOR="#000000">“<FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>vi”
+editor</B></FONT></FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<TABLE WIDTH=741 CELLPADDING=2 CELLSPACING=0>
+	<COL WIDTH=179>
+	<COL WIDTH=550>
+	<TR VALIGN=TOP>
+		<TD WIDTH=179 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>$
+			vi </B></FONT><FONT SIZE=2><I>filename</I></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=550 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="margin-right: -8.3cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>start
+			editing file with vi</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=179 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>i</B></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=550 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="margin-right: -8.3cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>switch
+			to “insert” mode</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=179 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>ESC</B></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=550 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="margin-right: -8.3cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>switch
+			to “command” mode</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=179 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>:w</B></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=550 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="margin-right: -8.3cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>save</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=179 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>:q</B></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=550 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="margin-right: -8.3cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>quit</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=179 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>:x</B></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=550 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="margin-right: -8.3cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>save
+			and quit</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=179 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>/&lt;pattern&gt;</B></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=550 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="margin-right: -8.3cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>search
+			for pattern, &lt;n&gt; gives you the next match</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=179 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2><B>:q!</B></FONT></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=550 STYLE="border: 1.00pt solid #d9d9d9; padding: 0.04cm">
+			<P STYLE="margin-right: -8.3cm"><FONT COLOR="#000000"><FONT FACE="Arial, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT SIZE=2>quit
+			without saving changes</FONT></FONT></FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; line-height: 115%"><BR>
+</P>
+</BODY>
+</HTML>
