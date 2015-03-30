@@ -34,17 +34,23 @@ Stefan Wyder & Heidi Lischer
 
 ## R (3 parts, 2x6.5h+3h=15h)
 
-[Stefan's website](http://milchmolch.github.io/R_Tutorial/)
 
-[Heidi's material (pdf documents)]()
-
-
-1. **Introduction into R**  
+1. **Introduction to R**  
    Using R as a calculator, variables, subsetting, reading in data, writing functions, apply functions, missing data, plotting (base::plot)
 2. **Programming Exercises**  
    Plotting using ggplot2, writing clean code, programming exercises
 3. **Programming Exercises 2**  
    Repetition (programming structures, clean coding, project organization)
 
+[Stefan's website (contains also Heidi's material)](http://milchmolch.github.io/R_Tutorial/)  
+  
+
 
 ## Introduction to python
+
+1. **Basics**
+   Basics, control flow, lists, file input/output, writing function, dictionaries, (tuples, sets)
+2. **Basics 2***
+   Introduction to Object-Oriented Programming, BioPython, regular expressions
+   
+[Stefan's website](http://milchmolch.github.io/Python_Tutorial/)  
