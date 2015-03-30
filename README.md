@@ -48,9 +48,9 @@ Stefan Wyder & Heidi Lischer
 
 ## Introduction to python
 
-1. **Basics**
+1. **Basics**  
    Basics, control flow, lists, file input/output, writing function, dictionaries, (tuples, sets)
-2. **Basics 2***
+2. **Basics 2***  
    Introduction to Object-Oriented Programming, BioPython, regular expressions
    
-[Stefan's website](http://milchmolch.github.io/Python_Tutorial/)  
+[Stefan's website](http://github.com/milchmolch/Python_Tutorial/)  
