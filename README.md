@@ -15,7 +15,7 @@ Stefan Wyder & Heidi Lischer
    [Hands-on](http://milchmolch.github.io/URPP_Tutorials/LinuxShell/Unix_Part2.html)  
 3. **Intermediate**  
    - [bash scripting](https://github.com/milchmolch/URPP_Tutorials/raw/master/LinuxShell/URPP_Tutorial_LinuxPart3_HL.pdf) | [Exercises](https://github.com/milchmolch/URPP_Tutorials/raw/master/LinuxShell/Exercises_LinuxPart3_HL.pdf)
-   - [parallel jobs, awk, regexps](http://milchmolch.github.io/URPP_Tutorials/LinuxShell/Unix_Part3.html) | [Hands-on](https://github.com/milchmolch/URPP_Tutorials/raw/master/LinuxShell/URPP_Hands-on_UnixPart3_SW.pdf)  
+   - [parallel jobs, awk, regexps](https://github.com/milchmolch/URPP_Tutorials/blob/master/LinuxShell/URPP_Tutorial_LinuxPart3_SW.pdf) | [Hands-on](https://github.com/milchmolch/URPP_Tutorials/raw/master/LinuxShell/URPP_Hands-on_UnixPart3_SW.pdf)  
 
 ## Next-Generation-Sequencing (4 parts, 4x3h=12h)
 
