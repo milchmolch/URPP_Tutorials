@@ -46,11 +46,11 @@ Stefan Wyder & Heidi Lischer
   
 
 
-## Introduction to python
+## Introduction to python (2 parts)
 
 1. **Basics**  
-   Basics, control flow, lists, file input/output, writing function, dictionaries, (tuples, sets)
+   Basics, control flow, lists, file input/output, writing function, dictionaries, tuples, sets
 2. **Basics 2***  
-   Introduction to Object-Oriented Programming, BioPython, regular expressions
+   Object-oriented programming, BioPython, regular expressions
    
 [Stefan's website](http://github.com/milchmolch/Python_Tutorial/)  
