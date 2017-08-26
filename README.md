@@ -53,3 +53,9 @@ Stefan Wyder & Heidi Lischer
    Object-oriented programming, BioPython, regular expressions
    
 [website](http://github.com/swyder/Python_Tutorial/)  
+
+## [Version control (git)](https://github.com/swyder/Git_Tutorial)
+## [NGS analysis utilities](https://github.com/swyder/Genomic_Utilities)
+## [Phylogenomic trees](https://github.com/swyder/Phylogenomics)
+## [Genomic data visualization / Genome browsers](https://github.com/swyder/Genomic_Visualization)
+## [Principles of data visualization](https://github.com/swyder/DATA_VISUALIZATION)
