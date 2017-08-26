@@ -8,16 +8,25 @@ Stefan Wyder & Heidi Lischer
 
 
 1. [Introduction to Linux and bash scripting](https://github.com/swyder/BIO609_2017)
+
 2. Next-Generation-Sequencing (4 parts, see below)
+
 3. [Introduction to R](http://swyder.github.io/R_Tutorial/)
-4. [Introduction to Python](https://github.com/swyder/Python_Tutorial) 
+
+4. [Introduction to Python](https://github.com/swyder/Python_Tutorial)
+
 5. [Version control (git)](https://github.com/swyder/Git_Tutorial)
-6. [NGS analysis utilities](https://github.com/swyder/Genomic_Utilities)  
-7. [Phylogenetic trees/Phylogenomics](https://github.com/swyder/Phylogenomics) 
-8. [Genomic data visualization / Genome browsers](https://github.com/swyder/Genomic_Visualization)    
+
+6. [NGS analysis utilities](https://github.com/swyder/Genomic_Utilities)
+
+7. [Phylogenetic trees/Phylogenomics](https://github.com/swyder/Phylogenomics)
+
+8. [Genomic data visualization / Genome browsers](https://github.com/swyder/Genomic_Visualization)
+
 9. [Principles of data visualization](https://github.com/swyder/DATA_VISUALIZATION)  
 
   
+    
 ## Detailed overview
 
 ## Linux/Bash shell (3 parts, 3x3h=9h)
